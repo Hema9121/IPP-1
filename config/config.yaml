@@ -1,0 +1,12 @@
+training_pipeline_config:
+  pipeline_name: Insurance
+  artifact_dir: artifact
+
+data_ingestion_config:
+  dataset_download_url: https://github.com/Hema9121/IPP-1/raw/main/dataset/insurance/insurance.zip
+  raw_data_dir: raw_data
+  tgz_download_dir: tgz_data
+  ingested_dir: ingested_data
+  ingested_train_dir: train
+  ingested_test_dir: test 
+

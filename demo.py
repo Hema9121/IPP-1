@@ -1,13 +1,21 @@
-from ipp.logger import logging
+from ipp.pipeline.pipeline import Pipeline
 from ipp.exception import InsuranceException
-import sys
+from ipp.logger import logging
+import sys,os
+from ipp.config.configuration import Configuartion
 
-def div():
+
+
+def main():
     try:
-        logging.info("division by zero error")
-        a=5/0
-        return a
+        config_path = os.path.join("config","config.yaml")
+        logging.info("testing")
+        pipeline=Pipeline(Configuartion())
+        pipeline.run_pipeline()
+        #pipeline.start()
+        logging.info("testing completed")
     except Exception as e:
         raise InsuranceException(e,sys) from e
-
-div()
+    
+if __name__=="__main__":
+    main()
