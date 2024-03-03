@@ -9,12 +9,12 @@ from typing import List
 
 #from multiprocessing import Process
 from ipp.entity.artifact_entity import DataIngestionArtifact#,ModelPusherArtifact, ModelEvaluationArtifact
-#from ipp.entity.artifact_entity import DataValidationArtifact, DataTransformationArtifact, ModelTrainerArtifact
-from ipp.entity.config_entity import DataIngestionConfig#, ModelEvaluationConfig
+from ipp.entity.artifact_entity import DataValidationArtifact, DataTransformationArtifact#, ModelTrainerArtifact
+from ipp.entity.config_entity import DataIngestionConfig #, ModelEvaluationConfig
 from ipp.components.data_ingestion import DataIngestion
-"""from ipp.component.data_validation import DataValidation
-from ipp.component.data_transformation import DataTransformation
-from ipp.component.model_trainer import ModelTrainer
+from ipp.components.data_validation import DataValidation
+from ipp.components.data_transformation import DataTransformation
+"""from ipp.component.model_trainer import ModelTrainer
 from ipp.component.model_evaluation import ModelEvaluation
 from ipp.component.model_pusher import ModelPusher"""
 import os, sys
@@ -45,6 +45,29 @@ class Pipeline():
         except Exception as e:
             raise InsuranceException(e, sys) from e
         
+    def start_data_validation(self, data_ingestion_artifact: DataIngestionArtifact)-> DataValidationArtifact:
+        try:
+            data_validation = DataValidation(data_validation_config=self.config.get_data_validation_config(),
+                                             data_ingestion_artifact=data_ingestion_artifact
+                                             )
+            return data_validation.initiate_data_validation()
+        except Exception as e:
+            raise InsuranceException(e, sys) from e
+        
+    def start_data_transformation(self,
+                                  data_ingestion_artifact: DataIngestionArtifact,
+                                  data_validation_artifact: DataValidationArtifact
+                                  ) -> DataTransformationArtifact:
+        try:
+            data_transformation = DataTransformation(
+                data_transformation_config=self.config.get_data_transformation_config(),
+                data_ingestion_artifact=data_ingestion_artifact,
+                data_validation_artifact=data_validation_artifact
+            )
+            return data_transformation.initiate_data_transformation()
+        except Exception as e:
+            raise InsuranceException(e, sys)
+
     def run_pipeline(self):
         try:
             """if Pipeline.experiment.running_status:
@@ -72,6 +95,11 @@ class Pipeline():
             self.save_experiment()"""
 
             data_ingestion_artifact = self.start_data_ingestion()
+            data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
+            data_transformation_artifact = self.start_data_transformation(
+                data_ingestion_artifact=data_ingestion_artifact,
+                data_validation_artifact=data_validation_artifact)
+            
         except Exception as e:
             raise InsuranceException(e, sys) from e
     def run(self):
