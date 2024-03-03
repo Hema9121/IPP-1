@@ -8,15 +8,15 @@ from ipp.exception import InsuranceException
 from typing import List
 
 #from multiprocessing import Process
-from ipp.entity.artifact_entity import DataIngestionArtifact#,ModelPusherArtifact, ModelEvaluationArtifact
-from ipp.entity.artifact_entity import DataValidationArtifact, DataTransformationArtifact#, ModelTrainerArtifact
-from ipp.entity.config_entity import DataIngestionConfig #, ModelEvaluationConfig
+from ipp.entity.artifact_entity import DataIngestionArtifact,ModelEvaluationArtifact#,ModelPusherArtifact
+from ipp.entity.artifact_entity import DataValidationArtifact, DataTransformationArtifact, ModelTrainerArtifact
+from ipp.entity.config_entity import DataIngestionConfig , ModelEvaluationConfig
 from ipp.components.data_ingestion import DataIngestion
 from ipp.components.data_validation import DataValidation
 from ipp.components.data_transformation import DataTransformation
-"""from ipp.component.model_trainer import ModelTrainer
-from ipp.component.model_evaluation import ModelEvaluation
-from ipp.component.model_pusher import ModelPusher"""
+from ipp.components.model_trainer import ModelTrainer
+from ipp.components.model_evaluation import ModelEvaluation
+"""from ipp.components.model_pusher import ModelPusher"""
 import os, sys
 import pandas as pd
 #from ipp.constant import EXPERIMENT_DIR_NAME, EXPERIMENT_FILE_NAME
@@ -67,6 +67,28 @@ class Pipeline():
             return data_transformation.initiate_data_transformation()
         except Exception as e:
             raise InsuranceException(e, sys)
+        
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
+        try:
+            model_trainer = ModelTrainer(model_trainer_config=self.config.get_model_trainer_config(),
+                                         data_transformation_artifact=data_transformation_artifact
+                                         )
+            return model_trainer.initiate_model_trainer()
+        except Exception as e:
+            raise InsuranceException(e, sys) from e
+        
+    def start_model_evaluation(self, data_ingestion_artifact: DataIngestionArtifact,
+                               data_validation_artifact: DataValidationArtifact,
+                               model_trainer_artifact: ModelTrainerArtifact) -> ModelEvaluationArtifact:
+        try:
+            model_eval = ModelEvaluation(
+                model_evaluation_config=self.config.get_model_evaluation_config(),
+                data_ingestion_artifact=data_ingestion_artifact,
+                data_validation_artifact=data_validation_artifact,
+                model_trainer_artifact=model_trainer_artifact)
+            return model_eval.initiate_model_evaluation()
+        except Exception as e:
+            raise InsuranceException(e, sys) from e
 
     def run_pipeline(self):
         try:
@@ -99,7 +121,10 @@ class Pipeline():
             data_transformation_artifact = self.start_data_transformation(
                 data_ingestion_artifact=data_ingestion_artifact,
                 data_validation_artifact=data_validation_artifact)
-            
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_evaluation_artifact = self.start_model_evaluation(data_ingestion_artifact=data_ingestion_artifact,
+                                                                    data_validation_artifact=data_validation_artifact,
+                                                                    model_trainer_artifact=model_trainer_artifact)
         except Exception as e:
             raise InsuranceException(e, sys) from e
     def run(self):
