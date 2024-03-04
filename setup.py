@@ -3,7 +3,7 @@ from typing import List
 
 #Declaring variables for setup functions
 PROJECT_NAME="Insurance Premium Prediction"
-VERSION="0.0.1"
+VERSION="0.0.11"
 AUTHOR="Hema Srinivasulu"
 DESRCIPTION="Insurance Premium Prediction Project"
 
