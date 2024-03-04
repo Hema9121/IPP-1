@@ -1,5 +1,5 @@
 from ipp.entity.config_entity import DataIngestionConfig,TrainingPipelineConfig,DataValidationConfig,\
-DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig
+DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig,ModelPusherConfig
 from ipp.util.util import read_yaml_file
 from ipp.logger import logging
 import sys,os
@@ -177,7 +177,7 @@ class Configuartion:
         
     def get_model_evaluation_config(self) ->ModelEvaluationConfig:
         try:
-            model_evaluation_config = self.config_info[MODEL_EVALUATION_CONFIG_KEY]
+            model_evaluation_config=self.config_info[MODEL_EVALUATION_CONFIG_KEY]
             artifact_dir = os.path.join(self.training_pipeline_config.artifact_dir,
                                         MODEL_EVALUATION_ARTIFACT_DIR, )
 
@@ -189,6 +189,20 @@ class Configuartion:
             
             logging.info(f"Model Evaluation Config: {response}.")
             return response
+        except Exception as e:
+            raise InsuranceException(e,sys) from e
+        
+    def get_model_pusher_config(self) -> ModelPusherConfig:
+        try:
+            time_stamp = f"{datetime.now().strftime('%Y%m%d%H%M%S')}"
+            model_pusher_config_info = self.config_info[MODEL_PUSHER_CONFIG_KEY]
+            export_dir_path = os.path.join(ROOT_DIR, model_pusher_config_info[MODEL_PUSHER_MODEL_EXPORT_DIR_KEY],
+                                           time_stamp)
+
+            model_pusher_config = ModelPusherConfig(export_dir_path=export_dir_path)
+            logging.info(f"Model pusher config {model_pusher_config}")
+            return model_pusher_config
+
         except Exception as e:
             raise InsuranceException(e,sys) from e
 

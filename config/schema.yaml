@@ -21,6 +21,12 @@ categorical_columns:
 target_column: expenses
 
 domain_value:
+  sex:
+    - female
+    - male
+  smoker:
+    - yes
+    - no
   region:
     - southeast
     - southwest

@@ -1,0 +1,13 @@
+best_model:
+  model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-20-49-31\trained_model\model.pkl
+history:
+  2024-03-04-09-56-25:
+    model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-09-40-40\trained_model\model.pkl
+  2024-03-04-10-06-48:
+    model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-09-56-25\trained_model\model.pkl
+  2024-03-04-10-21-00:
+    model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-10-06-48\trained_model\model.pkl
+  2024-03-04-15-41-29:
+    model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-10-21-00\trained_model\model.pkl
+  2024-03-04-20-49-31:
+    model_path: C:\Users\dshem\OneDrive\Desktop\projects\project-2\IPP-1\Insurance\artifact\model_trainer\2024-03-04-15-41-29\trained_model\model.pkl

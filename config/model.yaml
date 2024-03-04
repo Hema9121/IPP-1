@@ -97,18 +97,22 @@ model_selection:
     params:
       loss:
       - squared_error
-      learning_rate: 0.1
+      learning_rate:
+      - 0.1
     search_param_grid: 
       loss: 
       - squared_error
-      learning_rate: 0.1
+      learning_rate:
+      - 0.1
   module_4:
     class: KNeighborsRegressor
     module: sklearn.neighbors
     params:
       n_neighbors: 10
-      weights: distance
-      p: 1
+      weights: 
+      - distance
+      p:
+      - 1
     search_param_grid:
       n_neighbors:
       - 3
@@ -131,19 +135,25 @@ model_selection:
     class: SVR
     module: sklearn.svm
     params:
-      kernel: rbf
-      degree: 3
+      kernel:
+      - rbf
+      degree:
+      - 3
     search_param_grid:
-      kernel: rbf
-      degree: 3
+      kernel:
+      - rbf
+      degree:
+      - 3
   module_6:
     class: XGBRegressor
     module: xgboost
     params:
-      n_estimators: 100
-      max_depth: 4
-      learning_rate: 0.1
-
+      n_estimators:
+      - 100
+      max_depth:
+      - 4
+      learning_rate:
+      - 0.1
     search_param_grid:
       n_estimators:
       - 100
@@ -162,4 +172,5 @@ model_selection:
       - 8
       - 9
       - 10
-      learning_rate: 0.1
+      learning_rate: 
+      - 0.1

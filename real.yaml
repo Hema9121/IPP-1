@@ -1,0 +1,175 @@
+grid_search:
+  class: GridSearchCV
+  module: sklearn.model_selection
+  params:
+    cv: 5
+    verbose: 2
+model_selection:
+  module_0:
+    class: LinearRegression
+    module: sklearn.linear_model
+    params:
+      fit_intercept: true
+    search_param_grid:
+      fit_intercept:
+      - true
+      - false
+  module_1:
+    class: RandomForestRegressor
+    module: sklearn.ensemble
+    params:
+      n_estimators: 100
+      max_depth: 4
+      max_features: 1.0
+      min_samples_leaf: 4
+      min_samples_split: 0.01
+    search_param_grid:
+      n_estimators:
+      - 100
+      - 200
+      - 300
+      - 500
+      - 1000
+      max_depth: 
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      max_features:
+      - 1.0
+      - sqrt
+      min_samples_leaf:
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      min_samples_split:
+      - 0.01
+  module_2:
+    class: DecisionTreeRegressor
+    module: sklearn.tree
+    params:
+      max_depth: 4
+      max_features: 1.0
+      min_samples_leaf: 7
+      min_samples_split: 4
+    search_param_grid:
+      max_depth:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      max_features:
+      - 1.0
+      - sqrt
+      min_samples_leaf:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      min_samples_split:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+  module_3:
+    class: GradientBoostingRegressor
+    module: sklearn.ensemble
+    params:
+      loss:
+      - squared_error
+      learning_rate:
+      - 0.1
+    search_param_grid: 
+      loss: 
+      - squared_error
+      learning_rate:
+      - 0.1
+  module_4:
+    class: KNeighborsRegressor
+    module: sklearn.neighbors
+    params:
+      n_neighbors: 10
+      weights: 
+      - distance
+      p:
+      - 1
+    search_param_grid:
+      n_neighbors:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
+      weights:
+      - uniform
+      - distance
+      p:
+      - 1
+      - 2
+  module_5:
+    class: SVR
+    module: sklearn.svm
+    params:
+      kernel:
+      - rbf
+      degree: 3
+    search_param_grid:
+      kernel:
+      - rbf
+      degree: 3
+  module_6:
+    class: XGBRegressor
+    module: xgboost
+    params:
+      n_estimators:
+      - 100
+      max_depth:
+      - 4
+      learning_rate:
+      - 0.1
+
+    search_param_grid:
+      n_estimators:
+      - 100
+      - 200
+      - 300
+      - 500
+      - 1000
+      max_depth:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      learning_rate: 
+      - 0.1
