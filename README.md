@@ -19,9 +19,31 @@ Applying machine learing tasks like Data Exploration, Data Cleaning, Feature Eng
     4) Gradient Boosting Regressor
     5) XGBoost Regressor
     6) KNN
+    7) SVR
 - **Model Selection :** Tested all the models to check the RMSE & R-squared.
 - **Pickle File** : Selected model as per best RMSE score & R-squared and created pickle file using pickle library.
 - **Webpage &Deployment :** Created a web application that takes all the necessary inputs from the user & shows the output. Then deployed project on the Heroku Platform.
 
 
 ## Deployment Link :
+
+
+## Web Inerface :
+![alt text](<Screenshot 2024-03-05 110641.png>)
+
+![alt text](<Screenshot 2024-03-05 110732.png>)
+
+## Libraries used :
+    1) Pandas
+    2) Numpy
+    3) Matplotlib, Seaborn, Plotly
+    4) Scikit-Learn
+    5) Flask
+    6) HTML
+    7) CSS
+
+## Technical Aspects :
+    1) Python 
+    2) Front-end : HTML, CSS
+    3) Back-end : Flask
+    4) Deployment : Heruko

@@ -26,7 +26,7 @@ MODEL_DIR = os.path.join(ROOT_DIR, SAVED_MODELS_DIR_NAME)
 from ipp.logger import get_log_dataframe
 
 INSURANCE_DATA_KEY = "insurance_data"
-EXPENSES_KEY = "EXPENSES"
+EXPENSES_KEY = "expenses"
 
 app=Flask(__name__)
 
@@ -113,8 +113,7 @@ def predict():
                                    bmi=bmi,
                                    children=children,
                                    smoker=smoker,
-                                   region=region,
-        )
+                                   region=region,)
         insurance_df = insurance_data.get_insurance_input_data_frame()
         insurance_predictor = InsurancePredictor(model_dir=MODEL_DIR)
         expenses = insurance_predictor.predict(X=insurance_df)
